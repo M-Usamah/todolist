@@ -9,12 +9,12 @@ class ToDoTile extends StatelessWidget {
   Function(BuildContext)? deleteFunction;
 
   ToDoTile({
-    super.key,
+    Key? key,
     required this.taskName,
     required this.taskComplete,
     required this.onChanged,
     required this.deleteFunction,
-  });
+  }):super(key: key);
 
   @override
   Widget build(BuildContext context) {
