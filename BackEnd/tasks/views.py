@@ -1,9 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render 
 from .models import Task
-from .forms import TaskForm
+from .forms import TaskForm,TaskSerializer
+from rest_framework import generics
 # Create your views here.
 
+
+# simple views
 def index(request):
     tasks = Task.objects.all()
     
@@ -39,3 +42,16 @@ def deleteTask(request,pk):
         return redirect('/')
     context = {'item': item }
     return render(request,'tasks/delete.html',context)
+
+
+
+# api views
+
+class TaskList(generics.ListCreateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+
+class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
